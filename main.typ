@@ -29,19 +29,25 @@ Born from the ashes of a StupidBear SpikingNeuralNetworks.jl.
 
 = Theoretical Framework
 
+Nothing new is presented in terms of theoretical framework.
+
+We use the forward Euler implementations of weight updates, and $ V_{M} $ updates, as the forward Euler method is fast, and sufficiently robust for use on well known homogenuous Leaky Integrate and Fire neurons.
 
 
 = Methodological Framework
 
-
+Weight update rules
 
 = Result Analysis
+
 
 #align(center + bottom)[
   #image("Graph_embedding.png", width: 70%)
 
   *SGtSNEpi visualization of the Potjans static connectome. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.
 ]
+
+Validation of Network Simulation Results
 
 
 = Recommendations and Conclusions
