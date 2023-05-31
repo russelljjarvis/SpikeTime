@@ -23,15 +23,15 @@ Another major advantage implementing SNN simulations in the Julia language is re
 // In neuromorphic engineering literature, you can often find tables
 To demonstrate the veracity and performance of this new simulation approach, we compare the the Potjans and Diesmann model as implemented in the NEST and GENN simulators. In a pending analysis, we compare simulation execution speeds and spike train raster plots to NEST and GENN using the discussed models as benchmarks. 
 
-A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of @awile2022modernizing
+A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of re-writing existing simulator code in the Julia language. @awile2022modernizing
 
-Born from the ashes of a StupidBear SpikingNeuralNetworks.jl.
+The discussed code repository takes its inspiration from a stale code base: StupidBear SpikingNeuralNetworks.jl
 
 = Theoretical Framework
 
 Nothing new is presented in terms of theoretical framework.
 
-We use the forward Euler implementations of weight updates, and $ V_{M} $ updates, as the forward Euler method is fast, and sufficiently robust for use on well known homogenuous Leaky Integrate and Fire neurons.
+We use the forward Euler implementations of synaptic current weight updates, and $ V_M $ updates, as the forward Euler method is fast, and sufficiently robust for use on well known homogenuous Leaky Integrate and Fire neurons.
 
 
 = Methodological Framework
