@@ -27,6 +27,44 @@ A review of the literature suggests that there is a desire to modernize pre-exis
 
 Born from the ashes of a StupidBear SpikingNeuralNetworks.jl.
 
+
+=== Intended caption for spike2vec document.
+
+*The output of the framework is a sequential state transition network of the spike train. Spontaneous network activity which didn't get repeated was simply not included in the state transition diagram.*
+*Two state transition diagrams are output, one with non repeating states, and one with repeating states."
+
+The attractor network view of the mammal cortex is consistant with phenomological observations about the mind, such that people commonly refer to "circular thinking", in obsessive compulsive disorder.
+Furthermore action and perception are theorized to occur in alternating cycles, during "action-perception" loops. 
+
+Neuronal synaptic weight changes, that happen as a result of STDP, simply bias the brain in a manner which will make salient brain states more likely to occur.
+
+It is possible that the windows which were disregarded because they didn't repeat, may well repeat given long enough neuronal recordings. This is an unavoidable problem, caused by fact that of limited or finite observations are novel network states, or repeating states.
+It is also possible that detected reoccuring states, are really only reoccuring state transitions.
+From our perspective we are unable to distinguish between a state and a network state transition.
+
+Whatever the case, state, or state transition, detecting periods of repeating patterns in a fast and scalable way, still bolsters the attractor network view of the brain.
+The algorithm may also be helpful for feature reconstruction in Neuromorphic Data sets from event based cameras.
+
+Reoccurance analysis was used to characterize vector encoded spike train matrices for repeating patterns.
+Re-currence analysis was able to give us numbers quantify the degree of repitition of states, and the entropy of state transition matrices.
+
+Steps convert the spike encoded vector matrices to "state space sets" as defined in the Julia Package Dynamical Systems.jl
+
+
+Re-occurance analysis did 
+
+#TODO quantify the complexity of state transition matrices with the non reoccuring states included, as this may give us insight about, information in the brain at a different time scale.
+
+ state transition networks
+
+Delay Embeddings can 
+
+//dynamic systems view of the brain @scholarpedia attractor_network.
+
+ caused by the network transitioning to familiar states, 
+Of course given longer recordings.
+*
+
 = Theoretical Framework
 
 
