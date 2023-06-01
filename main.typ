@@ -23,15 +23,38 @@ Another major advantage implementing SNN simulations in the Julia language is re
 // In neuromorphic engineering literature, you can often find tables
 To demonstrate the veracity and performance of this new simulation approach, we compare the the Potjans and Diesmann model as implemented in the NEST and GENN simulators. In a pending analysis, we compare simulation execution speeds and spike train raster plots to NEST and GENN using the discussed models as benchmarks. 
 
-A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of @awile2022modernizing
+A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of re-writing existing simulator code in the Julia language. @awile2022modernizing
 
-Born from the ashes of a StupidBear SpikingNeuralNetworks.jl.
+The discussed code repository takes its inspiration from a stale code base: StupidBear SpikingNeuralNetworks.jl
+
+
+=== Intended Motivation/Intro.
+In order to garner evidence for the "replay as network attractor" theory of memory encoding and memory recall
+faster scalable methods are needed to transform spike raster plots into attractor trajectories and energy landscapes. 
+
+A problem with converting spike train raster plots to attractor trajectories, is the oldest and most established system for
+deriving attractor trajectories (and energy landscapes) needs to the system under investigation to be encoded as a continuous differentiable function.
+A dominant approach which satisfys the continuous function requirement is to fit a differential equation that models a networks firing rate(s) in response to current injection
+the assumption underlying this approach, is that the rate coded information and network states are more important than or even exclude temporal codes.    
+
+Another approach to estimating attractor trajectories involves applying Delay Coordinate Embeddings framework. The advantage of this approach is that
+a model equation is not required, and a timeseries of system observations satisfies the algorithms requirements.
+Spikes time raster plots are sparsely encoded collections of events that are naturally encoded by ragged arrays, and delay coordinate embeddings requires a state space map.
+Vector matrices that are output from spike2vec are sufficient to satisfy Delay Coordinate Embeddings, however, the frame work is slow to evaluate, and the quality of the output of the algorithm dependent on many parameters (both in parameters of spike2vec and DCE).
+
+Yet another approach is to use Recurrence Analysis. Recurrence Analysis is orders of magnitude faster than DCE, and the results of DCE
+usefully describe the network properties of state transition matrices. 
+
+It is the authors view, that the fast algorithm described above is functionally similar to the RecurrenceAnalysis approach, and that it leads to a faster and more 
+interprebable network transition matrices.
 
 
 === Intended caption for spike2vec document.
 
 *The output of the framework is a sequential state transition network of the spike train. Spontaneous network activity which didn't get repeated was simply not included in the state transition diagram.*
 *Two state transition diagrams are output, one with non repeating states, and one with repeating states."
+
+=== Intended Discusssion
 
 The attractor network view of the mammal cortex is consistant with phenomological observations about the mind, such that people commonly refer to "circular thinking", in obsessive compulsive disorder.
 Furthermore action and perception are theorized to occur in alternating cycles, during "action-perception" loops. 
@@ -67,19 +90,24 @@ Of course given longer recordings.
 
 = Theoretical Framework
 
+Nothing new is presented in terms of theoretical framework.
+
+We use the forward Euler implementations of synaptic current weight updates, and $ V_M $ updates, as the forward Euler method is fast, and sufficiently robust for use on well known homogenuous Leaky Integrate and Fire neurons.
 
 
 = Methodological Framework
 
-
+Weight update rules
 
 = Result Analysis
 
+
 #align(center + bottom)[
   #image("Graph_embedding.png", width: 70%)
-
-  *SGtSNEpi visualization of the Potjans static connectome. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.
+  *SGtSNEpi visualization of the Potjans static connectome. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
 ]
+
+Validation of Network Simulation Results
 
 
 = Recommendations and Conclusions
