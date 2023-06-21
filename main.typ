@@ -1,16 +1,14 @@
 #import "template.typ": *
 #show: ieee.with(
-  title: "SpikeTime Spiking Neuronal Network Simulation in Julia Language",
+  title: "SpikeTime: Spiking Neuronal Network Simulation in Julia Language",
   abstract: [
   ],
   authors: (
-    (name: "Tentative All of the SpikingNeuralNetwork code authors", affiliation: "Tentative All of the SpikingNeuralNetwork code authors affiliations"),
-    (name: "Dr Russell Jarvis", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
+    (name: "Russell Jarvis", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
     (name: "Yeshwanth Bethi", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
     (name: "Pablo de Abreu Urbizagastegui", affiliation: "International Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University")
 
   ),
-  index-terms: ("A", "B", "C", "D"),
   bibliography-file: "refs.bib",
 )
 
@@ -21,35 +19,60 @@ While there is much focus on hardware advances that accellerate the simulation o
 Another major advantage implementing SNN simulations in the Julia language is reduced technical debt. The simulation code we are developing is both faster and less complicated to read compared with some other simulation frameworks. The simplicity of the code base encompasses a simple installation process. Ease of installation is an important part of neuronal simulators that is often overlooked when evaluating simulation merit, GPU simulation environments are notoriously difficult to install and this big technical burden of installation harms model portability and reproducibility. The Julia language facilitates the ease of installation to solve the “two language problem” of scientific computing. The simulator encompasses a singular language environment, which includes a reliable, versatile, and monolithic package manager. Furthermore the simulator installation includes no external language compilation tools or steps.
 
 // In neuromorphic engineering literature, you can often find tables
-To demonstrate the veracity and performance of this new simulation approach, we compare the the Potjans and Diesmann model as implemented in the NEST and GENN simulators. In a pending analysis, we compare simulation execution speeds and spike train raster plots to NEST and GENN using the discussed models as benchmarks. 
+To demonstrate the veracity and performance of this new simulation approach, we compare the the Potjans and Diesmann model as implemented in the NEST and GENN simulators. In a pending analysis, we compare simulation execution speeds and spike train raster plots to NEST and GENN using the discussed models as benchmarks.  A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of re-writing existing simulator code in the Julia language. @awile2022modernizing
 
-A review of the literature suggests that there is a desire to modernize pre-existing large scale network simulators, but such efforts fall short of re-writing existing simulator code in the Julia language. @awile2022modernizing
-
-The discussed code repository takes its inspiration from a stale code base: StupidBear SpikingNeuralNetworks.jl
+The discussed code repository started from using a the pre-existing GitHub code base @yaolu, and is similar in other ways to @arthur2022scalable and @illing2019biologically
 
 = Theoretical Framework
 
-Nothing new is presented in terms of theoretical framework.
+// Nothing new is presented in terms of theoretical framework.
 
 We use the forward Euler implementations of synaptic current weight updates, and $ V_M $ updates, as the forward Euler method is fast, and sufficiently robust for use on well known homogenuous Leaky Integrate and Fire neurons.
 
 
 = Methodological Framework
 
-Weight update rules
+Forward Euler Weight update rules, and membrane potential update rules where applied.
+
+
+== Virtual Experiment Simulation Protocol
+
+We presented neuromorphic data to the potjan's network model. To do this we constructed
+a 2D population layer, and gave every cell spatial coordinates. We systematically populated cell centres along a 2D grid. 
+/*randomly populated a 2D sheet with x,y coordinates so that we could give each cell a unique spatial position.
+We then applied a distance dependent wiring rule to the input layer, */
+
+We then used a distance dependent wiring rule such that neighbouring cells are more likely to be synaptically connected with each other with inhibitory synapses, according to a "winner-take-all" connection scheme. This 2D sheet population of cells then mapped onto regular 1D populations of cells, in the Potjan's balanced E/I model.
+
+In this way we were able to present several neuromorphic data types to the Potjan's E/I network,  and we allowed the network to train its synapses with STDP synaptic update rules. under exposure to 5 out of 10 different numbers of the NMNIST neuromorphic data set. We used the spike2vec algorithm from to show that presenting familiar training items (0-2-4-6-8) to the trained model caused the network to enter attractors (caused the network to recall a repeated temporal spatial pattern). Presenting un-familiar NMNIST items (odd numbers 1-3-5-7-9), did not cause the network to enter those attractors as frequently.
+
+We also applied the Recurrence Analysis metrics to its found state transition matrices, for spike2vec encoded raster plot evolutions under both familiar and unfamiliar item categories.
+Finally we converted the spike sequence vectors to word vectors, on trained familiar items, and trained unfamiliar items. Converting spikes to words via vectors, allowed us to compare model spike trains with emperical data, using the statistics of natural language @illing2019biologically.
+
 
 = Result Analysis
 
-
 #align(center + bottom)[
-  #image("Graph_embedding.png", width: 70%)
-  *SGtSNEpi visualization of the Potjans static connectome. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
+  #image("Potjans_connectome_no_input_layer.png", width: 70%)
+  *Heatmap visualization of the Potjans and Diesmon static connectome @potjans2014cell, scalled such that the total number of cells including the combined contribution of E and I populations is 5450.*
 ]
 
-Validation of Network Simulation Results
 
 
-= Recommendations and Conclusions
+#align(center + bottom)[
+    #image("Graph_embedding.png", width: 70%)
+  *SGtSNEpi visualization of the Potjans and Diesmon static connectome @potjans2014cell. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
+]
+
+= Validation of Network Simulation Results
+
+ Two common models of cortical spiking networks are the, Potjan's and Diesmon @potjans2014cell model and the Brunel model @brunel1996hebbian, both of these models exist within a fluctuation driven regime. When each of these respective network models are simulated, observed spike times are typically appear to be poisson distrubited psuedo random spike times. By design these models make it unlikely that fine grained recognizable repeating patterns also occur. The Potjan's model can be used to make data points seperable. However, new data sets prominently capture replayed states, and previously collected spike trains may, too, have latent and unpublished states of replay. The limited recordings from limited species may have biased previous recordings in a way that underrepresented the prevalence of replay.
+
+
+#align(center + bottom)[
+    #image("NMNIST_Impinged_onto_Potjans.png", width: 70%)
+  *SGtSNEpi visualization of the Potjans and Diesmon static connectome @potjans2014cell. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
+]
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
@@ -60,9 +83,6 @@ Validation of Network Simulation Results
 
 
 
-=== Contributions
-
-=== Bibliography
 //#bibliography("bibliography.bib")
 //https://www.frontiersin.org/articles/10.3389/fninf.2022.884046/full
 
