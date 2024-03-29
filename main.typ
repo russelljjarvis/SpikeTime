@@ -24,6 +24,67 @@ To demonstrate the veracity and performance of this new simulation approach, we 
 
 The discussed code repository started from using a the pre-existing GitHub code base @yaolu, and is similar in other ways to @arthur2022scalable and @illing2019biologically
 
+
+=== Intended Motivation/Intro.
+In order to garner evidence for the "replay as network attractor" theory of memory encoding and memory recall
+faster scalable methods are needed to transform spike raster plots into attractor trajectories and energy landscapes. 
+
+A problem with converting spike train raster plots to attractor trajectories, is the oldest and most established system for
+deriving attractor trajectories (and energy landscapes) needs to the system under investigation to be encoded as a continuous differentiable function.
+A dominant approach which satisfys the continuous function requirement is to fit a differential equation that models a networks firing rate(s) in response to current injection
+the assumption underlying this approach, is that the rate coded information and network states are more important than or even exclude temporal codes.    
+
+Another approach to estimating attractor trajectories involves applying Delay Coordinate Embeddings framework. The advantage of this approach is that
+a model equation is not required, and a timeseries of system observations satisfies the algorithms requirements.
+Spikes time raster plots are sparsely encoded collections of events that are naturally encoded by ragged arrays, and delay coordinate embeddings requires a state space map.
+Vector matrices that are output from spike2vec are sufficient to satisfy Delay Coordinate Embeddings, however, the frame work is slow to evaluate, and the quality of the output of the algorithm dependent on many parameters (both in parameters of spike2vec and DCE).
+
+Yet another approach is to use Recurrence Analysis. Recurrence Analysis is orders of magnitude faster than DCE, and the results of DCE
+usefully describe the network properties of state transition matrices. 
+
+It is the authors view, that the fast algorithm described above is functionally similar to the RecurrenceAnalysis approach, and that it leads to a faster and more 
+interprebable network transition matrices.
+
+
+=== Intended caption for spike2vec document.
+
+*The output of the framework is a sequential state transition network of the spike train. Spontaneous network activity which didn't get repeated was simply not included in the state transition diagram.*
+*Two state transition diagrams are output, one with non repeating states, and one with repeating states."
+
+=== Intended Discusssion
+
+The attractor network view of the mammal cortex is consistant with phenomological observations about the mind, such that people commonly refer to "circular thinking", in obsessive compulsive disorder.
+Furthermore action and perception are theorized to occur in alternating cycles, during "action-perception" loops. 
+
+Neuronal synaptic weight changes, that happen as a result of STDP, simply bias the brain in a manner which will make salient brain states more likely to occur.
+
+It is possible that the windows which were disregarded because they didn't repeat, may well repeat given long enough neuronal recordings. This is an unavoidable problem, caused by fact that of limited or finite observations are novel network states, or repeating states.
+It is also possible that detected reoccuring states, are really only reoccuring state transitions.
+From our perspective we are unable to distinguish between a state and a network state transition.
+
+Whatever the case, state, or state transition, detecting periods of repeating patterns in a fast and scalable way, still bolsters the attractor network view of the brain.
+The algorithm may also be helpful for feature reconstruction in Neuromorphic Data sets from event based cameras.
+
+Reoccurance analysis was used to characterize vector encoded spike train matrices for repeating patterns.
+Re-currence analysis was able to give us numbers quantify the degree of repitition of states, and the entropy of state transition matrices.
+
+Steps convert the spike encoded vector matrices to "state space sets" as defined in the Julia Package Dynamical Systems.jl
+
+
+Re-occurance analysis did 
+
+#TODO quantify the complexity of state transition matrices with the non reoccuring states included, as this may give us insight about, information in the brain at a different time scale.
+
+ state transition networks
+
+Delay Embeddings can 
+
+//dynamic systems view of the brain @scholarpedia attractor_network.
+
+ caused by the network transitioning to familiar states, 
+Of course given longer recordings.
+*
+
 = Theoretical Framework
 
 // Nothing new is presented in terms of theoretical framework.
