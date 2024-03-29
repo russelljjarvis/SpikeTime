@@ -6,7 +6,8 @@
   authors: (
     (name: "Russell Jarvis", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
     (name: "Yeshwanth Bethi", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
-    (name: "Pablo de Abreu Urbizagastegui", affiliation: "International Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University")
+    (name: "Pablo de Abreu Urbizagastegui", affiliation: "International Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University"),
+    (name: "Ali Mehrabi", affiliation: "nternational Centre for Neuromorphic Systems, MARCS Institute, Western Sydney University")
 
   ),
   bibliography-file: "refs.bib",
@@ -57,11 +58,17 @@ Finally we converted the spike sequence vectors to word vectors, on trained fami
   *Heatmap visualization of the Potjans and Diesmon static connectome @potjans2014cell, scalled such that the total number of cells including the combined contribution of E and I populations is 5450.*
 ]
 
+/*
+#align(center + bottom)[
+  #image("Potjans_connectome_input_layer.png", width: 70%)
+  *Heatmap visualization of the same connectome except with an added input layer that is used to impinge external spikes from the NMNIST dataset.*
+]
+*/
 
 
 #align(center + bottom)[
     #image("Graph_embedding.png", width: 70%)
-  *SGtSNEpi visualization of the Potjans and Diesmon static connectome @potjans2014cell. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
+  *SGtSNEpi visualization of the Potjans and Diesmon static connectome @potjans2014cell. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionality reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
 ]
 
 = Validation of Network Simulation Results
@@ -71,8 +78,24 @@ Finally we converted the spike sequence vectors to word vectors, on trained fami
 
 #align(center + bottom)[
     #image("NMNIST_Impinged_onto_Potjans.png", width: 70%)
-  *SGtSNEpi visualization of the Potjans and Diesmon static connectome @potjans2014cell. Graph partitioning of the connectome adjacency matrix can be used to compile network models in a way that minimises spike traffic between GPU thread locks. Although the SGtSNEpi dimensionalityt reduction technique provides a nice over view of network structure at scale, it is not as fast or useful as other techniques that distribute the network based on effective connectivity measures. different technique we developed which is called Spike2Vec.*
+  *One labelled sample of the NMNIST data set was fed into a Potjans connectome SNN, and the readout from the whole network was recorded.*
 ]
+
+
+
+#align(center + bottom)[
+    #image("balanced_if_net_structure.png", width: 70%)
+  *The adjacency matrix from a random connectome approximately balanced E/I network with 4 different populations EI, EE, IE, II.*
+]
+
+
+
+#align(center + bottom)[
+    #image("balanced_random_spikes.png", width: 70%)
+  *The spike trains read out after stimulating the above basic balanced connectome, after all of the neurons in the network were stimulated with direct current over the duration of the simulation recording.*
+]
+
+
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
